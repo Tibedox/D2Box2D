@@ -12,6 +12,7 @@ public class KinematicBody {
     public float width, height;
     private Body body;
     private float vx = 2;
+    private float va = 4;
 
     public KinematicBody(World world, float x, float y, float width, float height) {
         this.x = x;
@@ -27,17 +28,24 @@ public class KinematicBody {
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(width/2, height/2);
-
         body.createFixture(shape, 0);
+
+        shape = new PolygonShape();
+        shape.setAsBox(height/2, width/2);
+        body.createFixture(shape, 0);
+
         shape.dispose();
 
         body.setLinearVelocity(vx, 0);
+        body.setAngularVelocity(va);
     }
 
     public void move(){
         if(body.getPosition().x < 0 || body.getPosition().x > WORLD_WIDTH){
             vx = -vx;
             body.setLinearVelocity(vx, 0);
+            va = -va;
+            body.setAngularVelocity(va);
         }
     }
 }
