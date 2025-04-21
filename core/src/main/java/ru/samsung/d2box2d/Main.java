@@ -18,6 +18,8 @@ public class Main extends ApplicationAdapter {
     private World world;
     private Box2DDebugRenderer renderer;
 
+    KinematicBody platform;
+
     @Override
     public void create() {
         batch = new SpriteBatch();
@@ -42,10 +44,15 @@ public class Main extends ApplicationAdapter {
         for (int i = 0; i < triangles.length; i++) {
             triangles[i] = new DynamicBodyTriangle(world, 10, 5+i, 0.7f, 0.7f);
         }
+        platform = new KinematicBody(world, 0, 4, 5, 0.8f);
     }
 
     @Override
     public void render() {
+        // события
+        platform.move();
+
+        // отрисовка
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
         renderer.render(world, camera.combined);
         batch.setProjectionMatrix(camera.combined);
