@@ -4,14 +4,13 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
-public class DynamicBody {
+public class DynamicBodyCircle {
     public float x, y;
     public float radius;
 
-    public DynamicBody(World world, float x, float y, float radius) {
+    public DynamicBodyCircle(World world, float x, float y, float radius) {
         this.x = x;
         this.y = y;
         this.radius = radius;
@@ -29,7 +28,7 @@ public class DynamicBody {
         fixtureDef.shape = shape;
         fixtureDef.density = 0.5f;
         fixtureDef.friction = 0.4f;
-        fixtureDef.restitution = 0.3f;
+        fixtureDef.restitution = 0.6f;
 
         body.createFixture(fixtureDef);
         shape.dispose();

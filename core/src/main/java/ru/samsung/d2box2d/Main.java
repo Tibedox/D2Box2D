@@ -2,7 +2,6 @@ package ru.samsung.d2box2d;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -31,9 +30,13 @@ public class Main extends ApplicationAdapter {
         StaticBody floor = new StaticBody(world, 8, 1, 15.5f, 0.3f);
         StaticBody wall1 = new StaticBody(world, 1, 5, 0.3f, 7f);
         StaticBody wall2 = new StaticBody(world, 15, 5, 0.3f, 7f);
-        DynamicBody[] ball = new DynamicBody[100];
+        DynamicBodyCircle[] ball = new DynamicBodyCircle[100];
         for (int i = 0; i < ball.length; i++) {
-            ball[i] = new DynamicBody(world, 8+ MathUtils.random(-0.1f, 0.1f), 5+i, 0.3f);
+            ball[i] = new DynamicBodyCircle(world, 8+MathUtils.random(-0.1f, 0.1f), 5+i, 0.3f);
+        }
+        DynamicBodyBox[] boxes = new DynamicBodyBox[100];
+        for (int i = 0; i < boxes.length; i++) {
+            boxes[i] = new DynamicBodyBox(world, 6, 5+i, 0.8f, 0.4f);
         }
     }
 
