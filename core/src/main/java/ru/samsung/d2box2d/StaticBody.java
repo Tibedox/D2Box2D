@@ -6,12 +6,10 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class StaticBody {
-    World world;
     public float x, y;
     public float width, height;
 
     public StaticBody(World world, float x, float y, float width, float height) {
-        this.world = world;
         this.x = x;
         this.y = y;
         this.width = width;
