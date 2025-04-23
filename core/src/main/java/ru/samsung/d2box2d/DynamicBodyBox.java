@@ -1,5 +1,6 @@
 package ru.samsung.d2box2d;
 
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.World;
 public class DynamicBodyBox {
     public float x, y;
     public float width, height;
+    public Body body;
 
     public DynamicBodyBox(World world, float x, float y, float width, float height) {
         this.x = x;
@@ -21,7 +23,7 @@ public class DynamicBodyBox {
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(x, y);
 
-        Body body = world.createBody(bodyDef);
+        body = world.createBody(bodyDef);
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(width/2, height/2);
@@ -34,5 +36,13 @@ public class DynamicBodyBox {
 
         body.createFixture(fixtureDef);
         shape.dispose();
+    }
+
+    public boolean hit(Vector3 t) {
+        x = body.getPosition().x;
+        y = body.getPosition().y;
+
+        return (t.x >= x - width / 2 && t.x <= x + width / 2 &&
+            t.y >= y - height / 2 && t.y <= y + height / 2);
     }
 }

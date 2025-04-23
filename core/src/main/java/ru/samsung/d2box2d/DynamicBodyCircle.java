@@ -1,5 +1,6 @@
 package ru.samsung.d2box2d;
 
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
@@ -9,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.World;
 public class DynamicBodyCircle {
     public float x, y;
     public float radius;
+    public Body body;
 
     public DynamicBodyCircle(World world, float x, float y, float radius) {
         this.x = x;
@@ -19,7 +21,7 @@ public class DynamicBodyCircle {
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(x, y);
 
-        Body body = world.createBody(bodyDef);
+        body = world.createBody(bodyDef);
 
         CircleShape shape = new CircleShape();
         shape.setRadius(radius);
@@ -32,5 +34,11 @@ public class DynamicBodyCircle {
 
         body.createFixture(fixtureDef);
         shape.dispose();
+    }
+
+    boolean hit(Vector3 t){
+        x = body.getPosition().x;
+        y = body.getPosition().y;
+        return (t.x-x)*(t.x-x) + (t.y-y)*(t.y-y) < radius*radius;
     }
 }
