@@ -127,6 +127,10 @@ public class Main extends ApplicationAdapter {
         batch.begin();
         batch.draw(imgColob, bird.getX(), bird.getY(), bird.getWidth()/2, bird.getHeight()/2,
             bird.getWidth(), bird.getHeight(), 1, 1, bird.getRotation());
+        if(pig != null) {
+            batch.draw(imgColob, pig.getX(), pig.getY(), pig.getWidth() / 2, pig.getHeight() / 2,
+                pig.getWidth(), pig.getHeight(), 1, 1, pig.getRotation());
+        }
         batch.end();
 
         batchText.setProjectionMatrix(cameraText.combined);
