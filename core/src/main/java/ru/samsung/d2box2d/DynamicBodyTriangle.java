@@ -3,9 +3,11 @@ package ru.samsung.d2box2d;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 
 public class DynamicBodyTriangle {
     public float x, y;
@@ -37,22 +39,11 @@ public class DynamicBodyTriangle {
         shape.dispose();
     }
 
-    public boolean hit(Vector3 point) {
-        float x = point.x;
-        float y = point.y;
-
-        float x1 = this.x;
-        float y1 = this.y + height / 2;
-        float x2 = this.x - width / 2;
-        float y2 = this.y - height / 2;
-        float x3 = this.x + width / 2;
-        float y3 = this.y - height / 2;
-
-        float area = Math.abs((x2 - x1) * (y3 - y1) - (x3 - x1) * (y2 - y1));
-        float area1 = Math.abs((x1 - x) * (y2 - y) - (x2 - x) * (y1 - y));
-        float area2 = Math.abs((x2 - x) * (y3 - y) - (x3 - x) * (y2 - y));
-        float area3 = Math.abs((x3 - x) * (y1 - y) - (x1 - x) * (y3 - y));
-
-        return (area == area1 + area2 + area3);
+    boolean hit(Vector3 t){
+        Array<Fixture> fixtures = body.getFixtureList();
+        for(Fixture f: fixtures) {
+            return f.testPoint(t.x, t.y);
+        }
+        return false;
     }
 }

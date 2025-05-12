@@ -4,16 +4,18 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 
 public class DynamicBodyBox {
     public float x, y;
     public float width, height;
     public Body body;
 
-    public DynamicBodyBox(World world, float x, float y, float width, float height) {
+    public DynamicBodyBox(World world, float x, float y, float width, float height, String name) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -35,14 +37,16 @@ public class DynamicBodyBox {
         fixtureDef.restitution = 0.2f;
 
         body.createFixture(fixtureDef);
+        body.setUserData(name);
+
         shape.dispose();
     }
 
-    public boolean hit(Vector3 t) {
-        x = body.getPosition().x;
-        y = body.getPosition().y;
-
-        return (t.x >= x - width / 2 && t.x <= x + width / 2 &&
-            t.y >= y - height / 2 && t.y <= y + height / 2);
+    boolean hit(Vector3 t){
+        Array<Fixture> fixtures = body.getFixtureList();
+        for(Fixture f: fixtures) {
+            return f.testPoint(t.x, t.y);
+        }
+        return false;
     }
 }
